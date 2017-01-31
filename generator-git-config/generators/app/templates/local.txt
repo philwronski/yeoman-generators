@@ -1,0 +1,19 @@
+[user]
+[color]
+[core]
+[branch]
+	autosetuprebase = always
+[pull]
+	rebase = true
+[alias]
+[url "https://"]
+	insteadOf = git://
+[merge]
+	tool = meld
+[mergetool "meld"]
+	path = C:\\Program Files (x86)\\Meld\\Meld.exe
+[diff]
+	tool = meld
+[difftool "meld"]
+	path = C:\\Program Files (x86)\\Meld
+	path = C:\\Program Files (x86)\\Meld\\Meld.exe
