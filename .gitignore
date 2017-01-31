@@ -1,0 +1,115 @@
+# Windows image file caches 
+Thumbs.db 
+ehthumbs.db 
+ 
+# Folder config file 
+Desktop.ini 
+ 
+# Recycle Bin used on file shares 
+$RECYCLE.BIN/ 
+ 
+# Windows Installer files 
+*.cab 
+*.msi 
+*.msm 
+*.msp 
+ 
+# Windows shortcuts 
+*.lnk 
+ 
+# ========================= 
+# Operating System Files 
+# ========================= 
+ 
+# OSX 
+# ========================= 
+ 
+.DS_Store 
+.AppleDouble 
+.LSOverride 
+ 
+# Thumbnails 
+._* 
+ 
+# Files that might appear in the root of a volume 
+.DocumentRevisions-V100 
+.fseventsd 
+.Spotlight-V100 
+.TemporaryItems 
+.Trashes 
+.VolumeIcon.icns 
+ 
+# Directories potentially created on remote AFP share 
+.AppleDB 
+.AppleDesktop 
+Network Trash Folder 
+Temporary Items 
+.apdisk 
+💥🐫 Added .gitattributes & .gitignore files
+
+Philippe Wronski
+authored1/26/2017 @ 10:31 PM
+commit:099d1a
+parent:
+2 added
+Name
+Expand All
+Tree View
+.gitattributes
+.gitignore
+File History: .gitignore
+Diff View
+File View
+💥🐫 Added .gitattributes & .gitignore files
+5 days ago by Philippe Wronski
+099d1a
+ADDED .gitignore
+End of History
+@@ -0,0 +1,47 @@
+# Windows image file caches 
+Thumbs.db 
+ehthumbs.db 
+ 
+# Folder config file 
+Desktop.ini 
+ 
+# Recycle Bin used on file shares 
+$RECYCLE.BIN/ 
+ 
+# Windows Installer files 
+*.cab 
+*.msi 
+*.msm 
+*.msp 
+ 
+# Windows shortcuts 
+*.lnk 
+ 
+# ========================= 
+# Operating System Files 
+# ========================= 
+ 
+# OSX 
+# ========================= 
+ 
+.DS_Store 
+.AppleDouble 
+.LSOverride 
+ 
+# Thumbnails 
+._* 
+ 
+# Files that might appear in the root of a volume 
+.DocumentRevisions-V100 
+.fseventsd 
+.Spotlight-V100 
+.TemporaryItems 
+.Trashes 
+.VolumeIcon.icns 
+ 
+# Directories potentially created on remote AFP share 
+.AppleDB 
+.AppleDesktop 
+Network Trash Folder 
+Temporary Items 
+.apdisk 
