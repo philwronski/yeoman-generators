@@ -113,3 +113,7 @@ $RECYCLE.BIN/
 Network Trash Folder 
 Temporary Items 
 .apdisk 
+
+\.yo-rc\.json
+
+git/

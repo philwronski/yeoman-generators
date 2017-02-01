@@ -8,22 +8,26 @@ module.exports = {
 }
 
 function writeSystem() {
-  this.fs.copy(
+  this.fs.copyTpl(
     this.templatePath('systeme.txt'),
-    this.destinationPath('gitconfig')
+    this.destinationPath('gitconfig'),
+    this.gitConfig
   );
 }
 
 function writeGlobal() {
-  this.fs.copy(
+  this.fs.copyTpl(
     this.templatePath('global.txt'),
-    this.destinationPath('%USERPROFILE%/.gitconfig')
+    this.destinationPath('%USERPROFILE%/.gitconfig'),
+    this.gitConfig
   );
 }
 
 function writeLocal() {
-  this.fs.copy(
+  console.log(this.gitConfig);
+  this.fs.copyTpl(
     this.templatePath('local.txt'),
-    this.destinationPath('./git/config')
+    this.destinationPath('./git/config'),
+    this.gitConfig
   );
 }

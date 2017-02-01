@@ -1,19 +1,54 @@
+# User settings
 [user]
+	email = <%= user.email %>
+	name = <%= user.name %>
+
 [color]
+	branch = auto
+	status = auto
+	diff = auto
+
+# Core settings
 [core]
+	<% if(!core.autocrlf) { %>
+	eol = lf
+	autocrlf = false
+	<% } %>
+	symlinks = false
+	editor = <%= core.editor %>
+
 [branch]
-	autosetuprebase = always
+	autosetuprebase = <%= branch.autoSetupRebase %>
+
+[credential "http://10.101.70.34"]
+	helper = wincred
+	username = philippe.wronski-ext@egis.fr
+[credential "http://10.101.70.34/groups/front-end-sobre"]
+	helper = wincred
+	username = philippe.wronski-ext@egis.fr
+[credential "http://10.101.70.34/front-end-sobre/front-end-sobre"]
+	helper = wincred
+	username = philippe.wronski-ext@egis.fr
+# Pull settings
 [pull]
-	rebase = true
+	rebase = <%= pull.rebase %>
 [alias]
-[url "https://"]
-	insteadOf = git://
+	<% alias.forEach(function(alias) { %>
+	<%= alias.alias %> = <%= alias.command %>
+	<% }); %>
+<% urls.forEach(function(url) { %>
+[url "<%= url.name %>"]
+	insteadOf = <%= url.insteadOf %>
+<% }); %>
+<% remotes.forEach(function(remote) { %>
+[remote "<%= remote.name %>"]
+	url = <%= remote.value %>
+<% }); %>
 [merge]
 	tool = meld
-[mergetool "meld"]
-	path = C:\\Program Files (x86)\\Meld\\Meld.exe
 [diff]
 	tool = meld
 [difftool "meld"]
-	path = C:\\Program Files (x86)\\Meld
+	path = C:\\Program Files (x86)\\Meld\\Meld.exe
+[mergetool "meld"]
 	path = C:\\Program Files (x86)\\Meld\\Meld.exe

@@ -3,6 +3,7 @@ var Generator = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 var prompts = require('./prompts');
+var writes = require('./writes');
 var pkg = require('../../package.json');
 
 module.exports = Generator.extend({
@@ -27,7 +28,7 @@ module.exports = Generator.extend({
   },
 
   writing: function() {
-    console.log(this.gitConfig);
+    writes.writeLocal.call(this);
     /*this.fs.copy(
       this.templatePath('dummyfile.txt'),
       this.destinationPath('dummyfile.txt')

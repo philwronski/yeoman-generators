@@ -101,10 +101,10 @@ function askForDefaultAlias() {
 
   this.prompt(prompts).then(function (props) {
     // To access props later use this.props.someAnswer;
-    this.gitConfig.alias = {};
-    this.gitConfig.alias.hist = "log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short";
-    this.gitConfig.alias.type = "cat-file –t";
-    this.gitConfig.alias.dump = "cat-file –p";
+    this.gitConfig.alias = [];
+    this.gitConfig.alias.push({alias : "hist", command : "log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short"});
+    this.gitConfig.alias.push({alias : "type", command : "cat-file –t"});
+    this.gitConfig.alias.push({alias : "dump", command : "cat-file –p"});
 
     done();
   }.bind(this));
@@ -144,8 +144,8 @@ function askForUseHttpsInsteadOfGit() {
 
   this.prompt(prompts).then(function (props) {
     // To access props later use this.props.someAnswer;
-    this.gitConfig.url = {};
-    this.gitConfig.url.insteadOf = props.url_insteadOf;
+    this.gitConfig.urls = [];
+    this.gitConfig.urls.push({name : "https://", insteadOf : "git://"});
 
     done();
   }.bind(this));
@@ -191,7 +191,7 @@ function askForBranchConfig() {
 function askForRemotes() {
   var done = this.async();
 
-  this.gitConfig.remote = [];
+  this.gitConfig.remotes = [];
   askForRemote.call(this, done);
 }
 
@@ -224,7 +224,7 @@ function askForRemote() {
 
   this.prompt(prompts).then(function (props) {
     if(props.add_remote) {
-      this.gitConfig.remote.push({"name": props.remote_shortName, "value": props.remote_url});
+      this.gitConfig.remotes.push({"name": props.remote_shortName, "value": props.remote_url});
       askForRemote.call(this, done);
     } else {
       done();
