@@ -1,19 +1,18 @@
 'use strict';
+
 var Generator = require('yeoman-generator');
-var chalk = require('chalk');
-var yosay = require('yosay');
 var prompts = require('./prompts');
 var writes = require('./writes');
-var pkg = require('../../package.json');
+var inits = require('./inits');
+var installs = require('./installs');
 
 module.exports = Generator.extend({
 
-  initializing: function() {
-    this.gitConfig = {};
-    // Have Yeoman greet the user.
-    this.log(yosay(
-      'Welcome to the premium ' + chalk.red(pkg.name) + ' generator!'
-    ));
+  initializing: {
+    initialize: inits.initialize,
+    helloYeo: inits.helloYeo,
+    printSystemInfos: inits.printSystemInfos,
+    gitIsInstalled: inits.gitIsInstalled
   },
 
   prompting: {
@@ -21,7 +20,9 @@ module.exports = Generator.extend({
     askForEditor: prompts.askForEditor,
     askForPull: prompts.askForPull,
     askForDefaultAlias: prompts.askForDefaultAlias,
-    askForMergeTool: prompts.askForMergeTool,
+    askForAliases: prompts.askForAliases,
+    askForDiff: prompts.askForDiff,
+    askForMerge: prompts.askForMerge,
     askForUseHttpsInsteadOfGit: prompts.askForUseHttpsInsteadOfGit,
     askForBranchConfig: prompts.askForBranchConfig,
     askForRemotes: prompts.askForRemotes
@@ -37,5 +38,8 @@ module.exports = Generator.extend({
 
   install: function() {
     //this.installDependencies();
+    if(this.fetchRemote) {
+
+    }
   }
 });

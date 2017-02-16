@@ -1,4 +1,5 @@
 'use strict';
+
 var chalk = require('chalk');
 
 module.exports = {
@@ -6,7 +7,9 @@ module.exports = {
   askForEditor,
   askForPull,
   askForDefaultAlias,
-  askForMergeTool,
+  askForAliases,
+  askForDiff,
+  askForMerge,
   askForUseHttpsInsteadOfGit,
   askForBranchConfig,
   askForRemotes
@@ -110,13 +113,82 @@ function askForDefaultAlias() {
   }.bind(this));
 }
 
-function askForMergeTool() {
+function askForAliases() {
+  var done = this.async();
+
+  if(this.gitConfig.remotes === undefined) {
+    this.gitConfig.alias = [];
+  }
+
+  askForAlias.call(this, done);
+}
+
+function askForAlias() {
+  var done = this.async();
+
+  var prompts = [{
+    type: 'confirm',
+    name: 'add_alias',
+    message: 'Do you want to add alias?',
+    default: true,
+    store: true
+  },
+  {
+    when: function(response) {
+      return response.add_alias;
+    },
+    type: 'input',
+    name: 'alias_cmd',
+    message: 'What is the alias command?'
+  },
+  {
+    when: function(response) {
+      return response.add_alias;
+    },
+    type: 'input',
+    name: 'alias_name',
+    message: 'What is the alias name?',
+  }];
+
+  this.prompt(prompts).then(function (props) {
+    if(props.add_alias) {
+      this.gitConfig.alias.push({"alias" : props.alias_name, "command" : props.alias_command});
+      askForAlias.call(this, done);
+    } else {
+      done();
+    }
+
+  }.bind(this));
+}
+
+function askForDiff() {
+  var done = this.async();
+
+  var prompts = [{
+    type: 'list',
+    name: 'diff_tool',
+    message: 'What is your diff tool?',
+    choices: ['kdiff3', 'tkdiff', 'meld', 'xxdiff', 'emerge', 'vimdiff', 'gvimdiff', 'ecmerge', 'opendiff'],
+    default: 'vimdiff',
+    store: true
+  }];
+
+  this.prompt(prompts).then(function (props) {
+    // To access props later use this.props.someAnswer;
+    this.gitConfig.diff = {};
+    this.gitConfig.diff.tool = props.diff_tool;
+
+    done();
+  }.bind(this));
+}
+
+function askForMerge() {
   var done = this.async();
 
   var prompts = [{
     type: 'list',
     name: 'merge_tool',
-    message: 'What is yout merge tool?',
+    message: 'What is your merge tool?',
     choices: ['kdiff3', 'tkdiff', 'meld', 'xxdiff', 'emerge', 'vimdiff', 'gvimdiff', 'ecmerge', 'opendiff'],
     default: 'vimdiff',
     store: true
@@ -145,7 +217,7 @@ function askForUseHttpsInsteadOfGit() {
   this.prompt(prompts).then(function (props) {
     // To access props later use this.props.someAnswer;
     this.gitConfig.urls = [];
-    this.gitConfig.urls.push({name : "https://", insteadOf : "git://"});
+    this.gitConfig.urls.push({"name" : "https://", "insteadOf" : "git://"});
 
     done();
   }.bind(this));
@@ -191,7 +263,6 @@ function askForBranchConfig() {
 function askForRemotes() {
   var done = this.async();
 
-  this.gitConfig.remotes = [];
   askForRemote.call(this, done);
 }
 
@@ -220,15 +291,53 @@ function askForRemote() {
     type: 'input',
     name: 'remote_shortName',
     message: 'What is the remote short name?',
+  },
+  {
+    when: function(response) {
+      return response.add_remote;
+    },
+    type: 'confirm',
+    name: 'remote_storeCredential',
+    message: 'Do you want to store credential for this remote?',
+  },
+  {
+    when: function(response) {
+      return response.add_remote && response.remote_storeCredential;
+    },
+    type: 'input',
+    name: 'remote_credential_username',
+    message: 'What is username for this remote?',
   }];
 
   this.prompt(prompts).then(function (props) {
     if(props.add_remote) {
       this.gitConfig.remotes.push({"name": props.remote_shortName, "value": props.remote_url});
+      if(props.remote_storeCredential) {
+        this.gitConfig.credentials.push({"url": props.remote_url, "helper": "wincred", "username": props.remote_credential_username});
+      }
       askForRemote.call(this, done);
     } else {
       done();
     }
 
+  }.bind(this));
+}
+
+function askForFetchRemote() {
+  var done = this.async();
+
+  var prompts = [{
+    type: 'confirm',
+    name: 'fetch_remote',
+    message: 'Your git-config is completed, do you want to fetch remote?',
+    default: false,
+    store: true
+  }];
+
+  this.prompt(prompts).then(function (props) {
+    // To access props later use this.props.someAnswer;
+    this.fetchRemote = props.fetch_remote;
+
+    done();
   }.bind(this));
 }
