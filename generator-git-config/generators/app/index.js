@@ -25,7 +25,8 @@ module.exports = Generator.extend({
     askForMerge: prompts.askForMerge,
     askForUseHttpsInsteadOfGit: prompts.askForUseHttpsInsteadOfGit,
     askForBranchConfig: prompts.askForBranchConfig,
-    askForRemotes: prompts.askForRemotes
+    askForRemotes: prompts.askForRemotes,
+    askForFetchRemote: prompts.askForFetchRemote
   },
 
   writing: function() {
@@ -38,8 +39,8 @@ module.exports = Generator.extend({
 
   install: function() {
     //this.installDependencies();
-    if(this.fetchRemote) {
-
+    if (this.fetchRemote) {
+      installs.cloneGitRepository();
     }
   }
 });

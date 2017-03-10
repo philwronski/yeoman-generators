@@ -5,5 +5,5 @@ module.exports = {
 };
 
 function cloneGitRepository() {
-  //var cloneGitRepository = childProcess.spawnSync("git", ["--version"]);
+  // var cloneGitRepository = childProcess.spawnSync("git", ["clone"]);
 }

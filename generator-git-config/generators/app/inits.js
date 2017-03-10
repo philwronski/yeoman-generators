@@ -43,10 +43,10 @@ function helloYeo() {
 }
 
 function gitIsInstalled() {
-  var gitIsInstalled = childProcess.spawnSync("got", ["--version"]);
-  if(gitIsInstalled.stderr != "") {
+  var gitIsInstalled = childProcess.spawnSync("git", ["--version"]);
+  if (gitIsInstalled.stderr != "") {
     this.gitIsInstalled = false;
-    this.abord();
+    process.exit(1);
   } else {
     this.gitIsInstalled = true;
   }
